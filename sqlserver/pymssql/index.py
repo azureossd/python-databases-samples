@@ -7,10 +7,10 @@ app = Flask(__name__)
 cnxn = None
 cursor = None
 
-server = 'edisga-server.database.windows.net' 
-database = 'edisga-sql' 
-username = 'support@edisga-server' 
-password = 'Pa$$w0rd123456' 
+server = 'server.database.windows.net' 
+database = 'database' 
+username = 'username@servername' 
+password = 'password' 
 
 messages = []
 
