@@ -30,7 +30,7 @@
 - Linux: Refer to [this documentation](https://docs.microsoft.com/en-us/sql/connect/python/pymssql/step-1-configure-development-environment-for-pymssql-python-development?view=sql-server-ver15#ubuntu-linux), you need some previous libraries as **freetds-dev** and **freetds-bin**.
 - **MacOS**: Refer to [this documentation](https://docs.microsoft.com/en-us/sql/connect/python/pymssql/step-1-configure-development-environment-for-pymssql-python-development?view=sql-server-ver15#macos), you need previous library as FreeTDS.
 
-> Note: This sample was created for Windows with **Python 3.8.2 and Win32**, the wheel download is **pymssql-2.1.4-cp38-cp38-win32.whl** downloaded from https://www.lfd.uci.edu/~gohlke/pythonlibs/#pymssql
+> Note: This sample was created for  **Python Windows 3.8.2 using Win32 bits**, the wheel downloaded is **pymssql-2.1.4-cp38-cp38-win32.whl** from https://www.lfd.uci.edu/~gohlke/pythonlibs/#pymssql
 > To install and run this sample, you will need to install the wheel manually with the following command:
 >```shell
 >    pip install pymssql-2.1.4-cp38-cp38-win32.whl 
