@@ -1,26 +1,24 @@
 from flask import Flask, jsonify
 import mysql.connector
 from mysql.connector import errorcode
-import sys
+import sys, os
 
 app = Flask(__name__)
 
 cnxn = None
 cursor = None
 
-config = {
-  'host':'servername.mysql.database.azure.com',
-  'user':'user@servername',
-  'password':'password' ,
-  'database':'databasename'
-}
-
 messages = []
+host = os.environ.get('HOST')
+database = os.environ.get('DATABASE')
+user = os.environ.get('USER')
+password = os.environ.get('PASSWORD')
 
 def Connect():
     try:
+        messages.clear()
         global cnxn
-        cnxn = mysql.connector.connect(**config)
+        cnxn = mysql.connector.connect(user=user,host=host,database=database,password=password)
         print("Connection established")
     except mysql.connector.Error as err:
         if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:

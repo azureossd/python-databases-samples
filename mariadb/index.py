@@ -9,10 +9,15 @@ mariadb_connection  = None
 cursor = None
 
 messages = []
+host = os.environ.get('HOST')
+database = os.environ.get('DATABASE')
+user = os.environ.get('USER')
+password = os.environ.get('PASSWORD')
 
 def Connect():
+    messages.clear()
     global mariadb_connection 
-    mariadb_connection  = mariadb.connect(user=os.environ.get('USER'), password=os.environ.get('PASSWORD'), database=os.environ.get('DATABASE'), host=os.environ.get('HOST'))
+    mariadb_connection  = mariadb.connect(user=user, password=password, database=database, host=host)
     global cursor
     cursor = mariadb_connection.cursor()
     messages.append("Connecting to Database")

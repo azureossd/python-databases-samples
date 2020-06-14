@@ -1,22 +1,23 @@
 from flask import Flask, jsonify
 import pymssql
-import sys
+import sys, os
 
 app = Flask(__name__)
 
 cnxn = None
 cursor = None
 
-server = 'server.database.windows.net' 
-database = 'database' 
-username = 'username@servername' 
-password = 'password' 
-
 messages = []
 
+host = os.environ.get('HOST')
+database = os.environ.get('DATABASE')
+user = os.environ.get('USER')
+password = os.environ.get('PASSWORD')
+
 def Connect():
+    messages.clear()
     global cnxn
-    cnxn = pymssql.connect(server, username, password, database)
+    cnxn = pymssql.connect(host, user, password, database)
     global cursor 
     cursor = cnxn.cursor()
     messages.append("Connecting to Database")
@@ -88,7 +89,9 @@ def home():
     except Exception as ex:
         print("Raised exception caught: ", ex.args)
     finally:
+        cursor.close()
         cnxn.close()
+        messages.append("Closing connection to Database")
     return jsonify(messages)
 
 if __name__ == '__main__':

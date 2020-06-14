@@ -1,6 +1,15 @@
 
 # How to run this sample code
 
+## Requirements
+You need to set the following environment variables with your data.
+
+- HOST
+- DATABASE
+- USER
+- PASSWORD
+
+
 ## Flask App
 1. Create a virtual environment with any python version >=3.
     - If you are using Windows:

@@ -1,22 +1,23 @@
 from flask import Flask, jsonify
 import pyodbc
-import sys
+import sys, os
 
 app = Flask(__name__)
 
 cnxn = None
 cursor = None
 
-server = 'tcp:server.database.windows.net' 
-database = 'database' 
-username = 'username' 
-password = 'password' 
+host = os.environ.get('HOST')
+database = os.environ.get('DATABASE')
+user = os.environ.get('USER')
+password = os.environ.get('PASSWORD')
 
 messages = []
 
 def Connect():
+    messages.clear()
     global cnxn
-    cnxn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+ server +';DATABASE='+ database +';UID='+ username +';PWD='+ password)
+    cnxn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+ host +';DATABASE='+ database +';UID='+ user +';PWD='+ password)
     global cursor 
     cursor = cnxn.cursor()
     messages.append("Connecting to Database")
@@ -83,7 +84,10 @@ def home():
     except Exception as ex:
         print("Raised exception caught: ", ex.args)
     finally:
+        cursor.close()
         cnxn.close()
+        messages.append("Closing connection to Database")
+        
     return jsonify(messages)
 
 if __name__ == '__main__':

@@ -8,11 +8,15 @@ cnx  = None
 cursor = None
 
 messages = []
+host = os.environ.get('HOST')
+database = os.environ.get('DATABASE')
+user = os.environ.get('USER')
+password = os.environ.get('PASSWORD')
 
 def Connect():
+    messages.clear()
     global cnx 
-    conn_string="host='{}' dbname='{}' user='{}' password='{}'".format(os.environ.get('HOST'), os.environ.get('DATABASE'),os.environ.get('USER'),os.environ.get('PASSWORD'))
-    print(conn_string)
+    conn_string="host='{}' dbname='{}' user='{}' password='{}'".format(host,database,user,password)
     cnx  = psycopg2.connect(conn_string)
     global cursor
     cursor = cnx.cursor()
