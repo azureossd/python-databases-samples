@@ -17,6 +17,8 @@ password = os.environ.get('PASSWORD')
 def Connect():
     messages.clear()
     global client 
+    #If you are using Azure CosmosDb, default port is 10255 and add the following parameters ?ssl=true&retrywrites=false.
+    #Example: conn_string="mongodb://{}:{}@{}:10255/{}?ssl=true&retrywrites=false".format(user,password,host,database)
     conn_string="mongodb://{}:{}@{}:27017/{}".format(user,password,host,database)
     client = MongoClient(conn_string)
     global db
