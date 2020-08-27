@@ -5,6 +5,7 @@
 You need to set the following environment variables with your data.
 
 - HOST
+   - If you are using SQL Azure then consider HOST=<servername>.database.windows.net and USER=<username>@<servername> in this format.
 - DATABASE
 - USER
 - PASSWORD
