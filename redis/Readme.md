@@ -15,8 +15,12 @@
 You need to set the following environment variables with the previous data from Azure Redis Cache.
 
 - HOST
-- DATABASE
 - PASSWORD
+
+For Windows: `set HOST=<alias>.redis.cache.windows.net` and the same for password.
+
+For Linux: `export HOST=<alias>.redis.cache.windows.net` and the same for password.
+
 
 ## Flask App
 1. Clone this repository with **`git clone https://github.com/azureossd/python-databases-samples.git`**.
@@ -52,5 +56,19 @@ You need to set the following environment variables with the previous data from 
         ```shell
             python3 index.py
         ```
+    
     > The application will be listening by default on **http://127.0.0.1:5000/**
 
+## Deploy to Azure App Service Linux
+1. Create a new Azure Web App Python Linux from the Azure Portal (preferably with Python 3.8 or latest) to deploy to Azure.
+2. Set up **Local Git** and copy your local git url.
+3. Click on **Configuration** and create the App Settings HOST,PASSWORD with the same values.
+4. Run the following commands to deploy:
+   ```bash
+      git init
+      git add .
+      git commit -m "Initial Commit to Azure"
+      git remote add azure https://<sitename>.scm.azurewebsites.net:443/<sitename>.git
+      git push azure master
+   ```
+5. Browse to the site **https://<sitename>.azurewebsites.net/** to review all operations for this application.
