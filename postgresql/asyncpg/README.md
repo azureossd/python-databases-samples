@@ -118,7 +118,7 @@ if __name__ == "__main__":
 
 In this code, you are creating a small FastAPI application that connects to the existing postgresql db. You can run FasAPI apps with uvicorn or gunicorn web servers.
 
-4. Run the application with **`python app.py`**, open your browser on this page `http://localhost:8000/`.
+4. Run the application with **`uvicorn app:app --reload`**, open your browser on this page `http://localhost:8000/`. 
 
 
 ## Dockerize FastAPI 
