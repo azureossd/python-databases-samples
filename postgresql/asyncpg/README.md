@@ -44,7 +44,7 @@ services:
     image: dpage/pgadmin4:5.7
     container_name: pg-admin
     ports:
-      - "8085:8000"
+      - "8085:80"
     environment:
       - PGADMIN_DEFAULT_EMAIL=username@contoso.com
       - PGADMIN_DEFAULT_PASSWORD=password
@@ -133,7 +133,7 @@ COPY requirements.txt requirements.txt
 
 RUN pip install --upgrade pip && pip3 install -r requirements.txt
 
-EXPOSE 80
+EXPOSE 8000
 
 COPY . .
 
