@@ -44,7 +44,7 @@ services:
     image: dpage/pgadmin4:5.7
     container_name: pg-admin
     ports:
-      - "8085:80"
+      - "8085:8000"
     environment:
       - PGADMIN_DEFAULT_EMAIL=username@contoso.com
       - PGADMIN_DEFAULT_PASSWORD=password
@@ -137,7 +137,7 @@ EXPOSE 80
 
 COPY . .
 
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
 
 ```
 
@@ -148,7 +148,7 @@ CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "80"]
     build: .
     container_name: fastapi
     ports:
-      - "8084:80"
+      - "8084:8000"
 ```
 3. Open `app.py` and modify the host in the connection string with `pg-docker`.
 
