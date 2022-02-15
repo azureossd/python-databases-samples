@@ -28,4 +28,4 @@ services:
     build: .
     container_name: fastapi
     ports:
-      - "8084:80"
+      - "8084:8000"
