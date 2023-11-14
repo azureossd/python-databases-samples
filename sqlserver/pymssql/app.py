@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-import pyodbc
+import pymssql
 import os
 
 app = Flask(__name__)
@@ -10,13 +10,18 @@ DATABASE = os.environ.get('DATABASE')
 USER = os.environ.get('USER')
 PASSWORD = os.environ.get('PASSWORD')
 
-connectionString = f'DRIVER={{ODBC Driver 18 for SQL Server}};SERVER={HOST};DATABASE={DATABASE};UID={USER};PWD={PASSWORD}'
 messages = []
 
 
 def createTable(conn, cursor):
     # Check if table exists
-    if cursor.tables(table='Users', tableType='TABLE').fetchone():
+    cursor.execute("""
+        SELECT COUNT(*)
+        FROM information_schema.tables
+        WHERE table_name = 'Users'
+    """)
+
+    if cursor.fetchone()[0] == 1:
         deleteTable(conn, cursor)
 
     cursor.execute("""
@@ -35,7 +40,6 @@ def queryRow(cursor):
 
     row = cursor.fetchone()
     messages.append("Querying from Table and selecting 1")
-
     while row:
         print(row[0])
         row = cursor.fetchone()
@@ -54,7 +58,7 @@ def queryAllRows(cursor):
 def insertRow(conn, cursor):
     cursor.execute("""
         INSERT INTO Users (name, lastname)
-        VALUES (?, ?)""",
+        VALUES (%s, %s)""",
                    ('Name', 'LastName')
                    )
 
@@ -66,7 +70,6 @@ def deleteRow(conn, cursor):
     cursor.execute("""
         DELETE FROM Users where id=1
     """)
-
     conn.commit()
     messages.append("Deleting row")
 
@@ -82,14 +85,15 @@ def deleteTable(conn, cursor):
 
 @app.route('/')
 def home():
-    # pyodbc automatically handles connection pooling
-    conn = pyodbc.connect(connectionString)
+    # pymssql does not handle connection pooling on its own
+    # Other APIs or ORMs can be used to do this - like sqlachlemy
+    conn = pymssql.connect(HOST, USER, PASSWORD, DATABASE)
     cursor = conn.cursor()
 
     try:
         messages.clear()
         messages.append("Connecting to Database")
-        # Pass in connection values to functions
+
         createTable(conn, cursor)
         insertRow(conn, cursor)
         queryRow(cursor)
