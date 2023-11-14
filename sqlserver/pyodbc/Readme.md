@@ -48,6 +48,10 @@ You need to set the following environment variables with your data.
         ```shell
             python3 index.py
         ```
+    - You can also run via the Flask CLI:
+        ```shell
+            flask run
+        ```
     > The application will be listening by default on **http://127.0.0.1:5000/**
 
 
