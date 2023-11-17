@@ -1,6 +1,6 @@
 import os
 
-import pymysql
+import mariadb
 from flask import Flask, jsonify
 
 app = Flask(__name__)
@@ -86,15 +86,15 @@ def deleteTable(conn, cursor):
 
 @app.route('/')
 def home():
+    conn = mariadb.connect(
+        user=USER,
+        host=HOST,
+        database=DATABASE,
+        password=PASSWORD)
+
+    cursor = conn.cursor()
+
     try:
-        conn = pymysql.connect(
-            user=USER,
-            host=HOST,
-            database=DATABASE,
-            password=PASSWORD)
-
-        cursor = conn.cursor()
-
         messages.clear()
         messages.append("Connecting to Database")
         # Pass in connection values to functions
@@ -111,7 +111,7 @@ def home():
         # Clean up connections
         cursor.close()
         conn.close()
-        print("MySQL connection is closed")
+        print("MariaDB connection is closed")
 
     return jsonify(messages)
 
